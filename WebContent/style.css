@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+/* Fonte*/
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+
+
+body{
+	font-family: 'Oswald', sans-serif;
+	font-size: 1em;
+	font-weight: 400;
+	background-color: #6A95AA;
+}
+
+h1{
+	color: #66bbff;
+}
+
+.Botao1{
+	text-decoration: none;
+	background-color: #66bbff;
+	padding: 10px 15px 10px 15px;
+	color: #fff;
+	font-size: 1.2em;
+	font-weight: 700;
+	border-radius: 5px;
+}
