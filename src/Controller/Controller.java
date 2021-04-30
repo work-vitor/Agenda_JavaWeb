@@ -6,28 +6,59 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Model.DAO;
+import Model.JavaBeans;
 
-/**
- * Servlet implementation class Controller
- */
-@WebServlet(urlPatterns = {"/Controller", "/main"})
+@WebServlet(urlPatterns = { "/Controller", "/main", "/insert" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Controller() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	DAO dao = new DAO();
+	JavaBeans contato = new JavaBeans();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public Controller() {
+		super();
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String action = request.getServletPath();
+		System.out.println(action);
+
+		if (action.equals("/main")) {
+			contatos(request, response);
+		} else if (action.equals("/insert")) {
+
+			novoContato(request, response);
+
+		} else {
+			response.sendRedirect("index.html");
+		}
+
+	}
+
+	// Listar Contatos
+	protected void contatos(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.sendRedirect("Agenda.jsp");
+	}
+
+	// Novo Contato
+	protected void novoContato(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// setar as variaveis JavaBeans
+		contato.setNome(request.getParameter("nome"));
+		contato.setFone(request.getParameter("fone"));
+		contato.setEmail(request.getParameter("email"));
+		
+		//chamar o metodo de inserção no banco
+		dao.InserirContato(contato);
+		
+		//rediricionar para o documento agenda.jsp
+		response.sendRedirect("main");
+
 	}
 
 }
